@@ -1,0 +1,65 @@
+{
+    "dataList":
+    [
+        {
+            "type": "stock",
+            "topic": "Siemens AG",
+            "url": "https://www.google.com/finance/quote/SIE:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Siemens Energy AG",
+            "url": "https://www.google.com/finance/quote/ENR:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Siemens Healthineers AG",
+            "url": "https://www.google.com/finance/quote/SHL:ETR"
+        },
+        {
+            "type": "index",
+            "topic": "DAX Performance Index",
+            "url": "https://www.google.com/finance/quote/DAX:INDEXDB"
+        },
+        {
+            "type": "reuters",
+            "topic": "world",
+            "url": "https://www.reuters.com/world/"
+        },
+        {
+            "type": "reuters",
+            "topic": "business",
+            "url": "https://www.reuters.com/business/"
+        },
+        {
+            "type": "reuters",
+            "topic": "markets",
+            "url": "https://www.reuters.com/markets/"
+        },
+        {
+            "type": "reuters",
+            "topic": "sustanability",
+            "url": "https://www.reuters.com/sustainability/"
+        },
+        {
+            "type": "reuters",
+            "topic": "legal",
+            "url": "https://www.reuters.com/legal/"
+        },
+        {
+            "type": "reuters",
+            "topic": "breakingviews",
+            "url": "https://www.reuters.com/breakingviews/"
+        },
+        {
+            "type": "reuters",
+            "topic": "technology",
+            "url": "https://www.reuters.com/breakingviews/"
+        },
+        {
+            "type": "weather",
+            "topic": "Weather Poessneck",
+            "url": "Poessneck"
+        }
+    ]
+}
