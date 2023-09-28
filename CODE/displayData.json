@@ -3,18 +3,68 @@
     [
         {
             "type": "stock",
-            "topic": "Siemens AG",
+            "topic": "Siemens",
             "url": "https://www.google.com/finance/quote/SIE:ETR"
         },
         {
             "type": "stock",
-            "topic": "Siemens Energy AG",
+            "topic": "Siemens Energy",
             "url": "https://www.google.com/finance/quote/ENR:ETR"
         },
         {
             "type": "stock",
-            "topic": "Siemens Healthineers AG",
+            "topic": "Siemens Healthineers",
             "url": "https://www.google.com/finance/quote/SHL:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "ThyssenKrupp",
+            "url": "https://www.google.com/finance/quote/TKA:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Commerzbank",
+            "url": "https://www.google.com/finance/quote/CBK:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Deutsche Telekom",
+            "url": "https://www.google.com/finance/quote/DTE:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Allianz SE",
+            "url": "https://www.google.com/finance/quote/ALV:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Volkswagen AG",
+            "url": "https://www.google.com/finance/quote/VOW3:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Xiaomi",
+            "url": "https://www.google.com/finance/quote/3CP:FRA"
+        },
+        {
+            "type": "stock",
+            "topic": "ProSiebenSat.1 Media",
+            "url": "https://www.google.com/finance/quote/PSM:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Lufthansa",
+            "url": "https://www.google.com/finance/quote/LHA:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "E.ON",
+            "url": "https://www.google.com/finance/quote/EOAN:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "CD Projekt",
+            "url": "https://www.google.com/finance/quote/7CD:FRA"
         },
         {
             "type": "index",
@@ -22,44 +72,209 @@
             "url": "https://www.google.com/finance/quote/DAX:INDEXDB"
         },
         {
+            "type": "index",
+            "topic": "Bitcoin",
+            "url": "https://www.google.com/finance/quote/BTC-EUR"
+        },
+        {
+            "type": "index",
+            "topic": "Ether",
+            "url": "https://www.google.com/finance/quote/ETH-EUR"
+        },
+        {
+            "type": "index",
+            "topic": "Dogecoin",
+            "url": "https://www.google.com/finance/quote/DOGE-EUR"
+        },
+        {
             "type": "reuters",
-            "topic": "world",
+            "topic": "World",
             "url": "https://www.reuters.com/world/"
         },
         {
             "type": "reuters",
-            "topic": "business",
+            "topic": "Business",
             "url": "https://www.reuters.com/business/"
         },
         {
             "type": "reuters",
-            "topic": "markets",
+            "topic": "Markets",
             "url": "https://www.reuters.com/markets/"
         },
         {
             "type": "reuters",
-            "topic": "sustanability",
+            "topic": "Sustanability",
             "url": "https://www.reuters.com/sustainability/"
         },
         {
             "type": "reuters",
-            "topic": "legal",
+            "topic": "Legal",
             "url": "https://www.reuters.com/legal/"
         },
         {
             "type": "reuters",
-            "topic": "breakingviews",
+            "topic": "Breakingviews",
             "url": "https://www.reuters.com/breakingviews/"
         },
         {
             "type": "reuters",
-            "topic": "technology",
+            "topic": "Technology",
             "url": "https://www.reuters.com/breakingviews/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Africa",
+            "url": "https://www.reuters.com/world/africa/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Americas",
+            "url": "https://www.reuters.com/world/americas/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Asia Pacific",
+            "url": "https://www.reuters.com/world/asia-pacific/"
+        },
+        {
+            "type": "reuters",
+            "topic": "China",
+            "url": "https://www.reuters.com/world/china/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Europe",
+            "url": "https://www.reuters.com/world/europe/"
+        },
+        {
+            "type": "reuters",
+            "topic": "India",
+            "url": "https://www.reuters.com/world/india/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Japan",
+            "url": "https://www.reuters.com/world/japan/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Middle East",
+            "url": "https://www.reuters.com/world/middle-east/"
+        },
+        {
+            "type": "reuters",
+            "topic": "UK",
+            "url": "https://www.reuters.com/world/uk/"
+        },
+        {
+            "type": "reuters",
+            "topic": "US",
+            "url": "https://www.reuters.com/world/us/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Aerospace and Defense",
+            "url": "https://www.reuters.com/business/aerospace-defense/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Autos and Transportation",
+            "url": "https://www.reuters.com/business/autos-transportation/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Energy",
+            "url": "https://www.reuters.com/business/energy/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Environment",
+            "url": "https://www.reuters.com/business/environment/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Finance",
+            "url": "https://www.reuters.com/business/finance/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Healthcare and Pharmaceuticals",
+            "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Media and Telecom",
+            "url": "https://www.reuters.com/business/media-telecom/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Retail and Consumer",
+            "url": "https://www.reuters.com/business/retail-consumer/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Charged",
+            "url": "https://www.reuters.com/business/charged/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Future of Health",
+            "url": "https://www.reuters.com/business/future-of-health/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Future of Money",
+            "url": "https://www.reuters.com/business/future-of-money/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Take Five",
+            "url": "https://www.reuters.com/business/take-five/"
+        },
+        {
+            "type": "reuters",
+            "topic": "World at Work",
+            "url": "https://www.reuters.com/business/world-at-work/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Boards, Policy and Regulation",
+            "url": "https://www.reuters.com/sustainability/boards-policy-regulation/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Climate and Energy",
+            "url": "https://www.reuters.com/sustainability/climate-energy/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Land Use and Biodiversity",
+            "url": "https://www.reuters.com/sustainability/land-use-biodiversity/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Society and Equity",
+            "url": "https://www.reuters.com/sustainability/society-equity/"
+        },
+        {
+            "type": "reuters",
+            "topic": "Sustainable Finance and Reporting",
+            "url": "https://www.reuters.com/sustainability/sustainable-finance-reporting/"
         },
         {
             "type": "weather",
             "topic": "Weather Poessneck",
             "url": "Poessneck"
+        },
+        {
+            "type": "weather",
+            "topic": "Weather Munich",
+            "url": "Munich"
+        },
+        {
+            "type": "weather",
+            "topic": "Weather Berlin",
+            "url": "Berlin"
         }
     ]
 }

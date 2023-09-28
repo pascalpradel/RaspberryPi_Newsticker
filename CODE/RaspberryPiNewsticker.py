@@ -1,6 +1,7 @@
 import json
 import random
 import requests
+import time
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ReutersWebScraper import ReutersWebScraper
 
@@ -26,16 +27,18 @@ class RaspiPiNewsticker(object):
                 record = self.displayDataList[randNr]
                 self.displayRecord(record)
                 del self.displayDataList[randNr]
+                time.sleep(1)
         else:
             for record in self.displayDataList:
                 self.displayRecord(record)
+                time.sleep(1)
 
 
     def displayRecord(self, record):
         if record[0] == "stock":
-            print(self.financeScraper.getCurrentStockData(record[2]), record[1])
+            print(self.financeScraper.getCurrentStockData(record[2], record[1]), record[1])
         elif record[0] == "index":
-            print(self.financeScraper.getCurrentIndexData(record[2]), record[1])
+            print(self.financeScraper.getCurrentIndexData(record[2], record[1]), record[1])
         elif record[0] == "reuters":
             print(self.reutersScraper.getCurrentHeadline(record[2]), record[1])
         elif record[0] == "weather":
