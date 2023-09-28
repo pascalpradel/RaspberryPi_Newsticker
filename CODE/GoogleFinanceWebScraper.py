@@ -109,7 +109,7 @@ class GoogleFinanceWebScraper(object):
                     return stock[1]
         if foundFlag == False:
             self.stockDataCacheList.append([stockName, stockValue, self.startTimestamp])
-        return None
+        return stockValue
 
 
     def saveStockDataCacheList(self):
