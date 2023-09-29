@@ -29,6 +29,8 @@ class RaspiPiNewsticker(object):
         self.reutersScraper = ReutersWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
+        self.whileFlag = True
+
         self.iterator = 0
         self.newText = ""
         self.stopThreadCreationFlag = False
@@ -50,16 +52,16 @@ class RaspiPiNewsticker(object):
             #print(self.newTextFlag, self.stopThreadCreationFlag, self.newText)
 
             if self.newTextFlag:
-                self.ledMatrix.text += self.newText
-                print(self.newText)
-                self.newTextFlag = False
+                if self.newText != None:
+                    self.ledMatrix.text += self.newText
+                    self.newTextFlag = False
 
             time.sleep(0.015)
             self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
 
 
     def getNextText(self):
-        if len(self.displayDataList) > 0:
+        if len(self.displayDataList) > 0 or self.iterator > len(self.displayDataList):
             if SHUFFLE:
                 randNr = random.randint(0, len(self.displayDataList)-1)
                 record = self.displayDataList[randNr]
@@ -70,14 +72,16 @@ class RaspiPiNewsticker(object):
                 self.iterator+= 1
             return text + "  "
         else:
-            return None
+            if SHUFFLE:
+                self.displayDataList = self.readJsonData()
+            else:
+                self.iterator = 0
         
 
     def threadAddNextText(self):
         self.newText = self.getNextText()
         self.newTextFlag = True
         self.stopThreadCreationFlag = False
-        print("Thread ready")
 
 
     def displayRecord(self, record):
