@@ -1,6 +1,7 @@
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ReutersWebScraper import ReutersWebScraper
 from LEDMatrix import LEDMatrix
+import threading
 import requests
 import random
 import json
@@ -29,6 +30,9 @@ class RaspiPiNewsticker(object):
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
         self.iterator = 0
+        self.newText = ""
+        self.stopThreadCreationFlag = False
+        self.newTextFlag = False
 
 
     def start(self):
@@ -38,10 +42,19 @@ class RaspiPiNewsticker(object):
             lenText = self.ledMatrix.lenText()
             self.ledMatrix.pos -= 1
 
-            if (self.ledMatrix.pos + lenText < COLS):
-                self.ledMatrix.text += self.getNextText()
+            if (self.ledMatrix.pos + lenText < COLS*4):
+                if self.stopThreadCreationFlag == False:
+                    self.stopThreadCreationFlag = True
+                    threading.Thread(target=self.threadAddNextText).start()
+            
+            #print(self.newTextFlag, self.stopThreadCreationFlag, self.newText)
 
-            time.sleep(0.01)
+            if self.newTextFlag:
+                self.ledMatrix.text += self.newText
+                print(self.newText)
+                self.newTextFlag = False
+
+            time.sleep(0.015)
             self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
 
 
@@ -58,6 +71,13 @@ class RaspiPiNewsticker(object):
             return text + "  "
         else:
             return None
+        
+
+    def threadAddNextText(self):
+        self.newText = self.getNextText()
+        self.newTextFlag = True
+        self.stopThreadCreationFlag = False
+        print("Thread ready")
 
 
     def displayRecord(self, record):
