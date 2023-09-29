@@ -24,8 +24,7 @@ class ReutersWebScraper(object):
 
             return headline, publishedTime, publishedTimeRound
         except:
-            return "ERROR", "ERROR"
-
+            return "ERROR", "ERROR", "ERROR"
 
 
     def getPage(self, url):

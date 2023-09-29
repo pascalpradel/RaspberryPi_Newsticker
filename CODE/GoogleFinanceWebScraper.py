@@ -1,15 +1,15 @@
-import json
-import requests
 from datetime import datetime
+import requests
+import json
 
 
-STOCKDATACACHE_PATH = "stockDataCache.json"
 DATAZIP = ["name", "value", "lastChange"]
 
 
 class GoogleFinanceWebScraper(object):
-    def __init__(self, saveLastPage=False):
+    def __init__(self, stockDataCachePath = "stockDataCache.json", saveLastPage=False):
         self.saveLastPage = saveLastPage
+        self.stockDataCachePath = stockDataCachePath
         self.session = requests.Session()
         self.session.cookies.set("CONSENT", "PENDING+229")
         self.session.cookies.set("SOCS", "CAISNQgSEitib3FfaWRlbnRpdHlmcm9udGVuZHVpc2VydmVyXzIwMjMwOTI0LjA5X3AxGgJkZSACGgYIgITTqAY")
@@ -19,27 +19,27 @@ class GoogleFinanceWebScraper(object):
 
 
     def getCurrentStockData(self, url, name):
-        #try:
-        content =  self.getPage(url)
+        try:
+            content =  self.getPage(url)
 
-        posExchange = content.find('data-exchange="')
-        posEndExchange = content.find('"', posExchange+16)
-        posCurrency = content.find('data-currency-code="')
-        posEndCurrency = content.find('"',posCurrency+21)
-        posLastPrice = content.find('data-last-price="')
-        posEndLastPrice = content.find('"', posLastPrice+18)
+            posExchange = content.find('data-exchange="')
+            posEndExchange = content.find('"', posExchange+16)
+            posCurrency = content.find('data-currency-code="')
+            posEndCurrency = content.find('"',posCurrency+21)
+            posLastPrice = content.find('data-last-price="')
+            posEndLastPrice = content.find('"', posLastPrice+18)
 
-        exchange = content[posExchange+15:posEndExchange]
-        currency = content[posCurrency+20:posEndCurrency]
-        lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
+            exchange = content[posExchange+15:posEndExchange]
+            currency = content[posCurrency+20:posEndCurrency]
+            lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
 
-        cachePrice = self.updateStockDataCacheList(name, lastPrice)
-        self.saveStockDataCacheList()
+            cachePrice = self.updateStockDataCacheList(name, lastPrice)
+            self.saveStockDataCacheList()
 
-        return exchange, currency, lastPrice, self.calculateDifference(float(lastPrice), float(cachePrice))
+            return exchange, currency, lastPrice, self.calculateDifference(float(lastPrice), float(cachePrice))
 
-        #except:
-        #    return "ERROR", "ERROR", "0.0", "ERROR"
+        except:
+            return "ERROR", "ERROR", "0.0", "ERROR"
         
 
     def getCurrentIndexData(self, url, name):
@@ -81,7 +81,7 @@ class GoogleFinanceWebScraper(object):
 
     def loadStockDataCache(self):
         try:
-            file = open(STOCKDATACACHE_PATH, "r")
+            file = open(self.stockDataCachePath, "r")
             jsonData = json.load(file)
             file.close()
     
@@ -118,7 +118,7 @@ class GoogleFinanceWebScraper(object):
             stockDicList.append(dict(zip(DATAZIP, stock)))
 
         cacheDicList = dict(zip(["stockValues"], [stockDicList]))
-        with open(STOCKDATACACHE_PATH, "w") as file:
+        with open(self.stockDataCachePath, "w") as file:
             json.dump(cacheDicList, file, indent=2)
 
 """
