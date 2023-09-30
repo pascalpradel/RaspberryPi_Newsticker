@@ -14,6 +14,7 @@ DATAFILE_PATH = "displayData.json"
 CONFIG_PATH = "config.json"
 SHUFFLE = True
 LIVEREQUEST = False #not recommended on Pi Zero
+STOPTIME = 22 #Uhr
 
 #Matrix Constants:
 ROWS = 32
@@ -35,6 +36,8 @@ class RaspiPiNewsticker(object):
         self.newText = ""
         self.stopThreadCreationFlag = False
         self.newTextFlag = False
+
+        print("Started at ", datetime.now())
 
 
     def start(self):
@@ -58,6 +61,9 @@ class RaspiPiNewsticker(object):
                 self.customSleep(0.01)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
+
+                if self.isAfter():
+                    break
         else:
             self.requestAll()
             while True:
@@ -77,6 +83,9 @@ class RaspiPiNewsticker(object):
                 self.customSleep(0.01)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
+
+                if self.isAfter():
+                    break
 
 
     def getNextText(self):
@@ -176,6 +185,11 @@ class RaspiPiNewsticker(object):
                 self.ledMatrix.text += nextText
             else:
                 break
+
+
+    def isAfter(self):
+        currentHour = datetime.now().hour
+        return currentHour > STOPTIME
 
 
 
