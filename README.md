@@ -6,7 +6,7 @@
 - 1x 5V Powersupply (minimum 2A) 
 - Wirering for all Components
 
-## Wireing
+## Wirering
 
 ## Installation
 
