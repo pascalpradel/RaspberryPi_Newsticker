@@ -8,6 +8,8 @@
 
 ## Wirering
 
+![](https://github.com/pascalpradel/RaspberryPi_Newsticker/blob/main/Images/Wirering.PNG)
+
 ## Installation
 
 - Installation of all requiered Features:
