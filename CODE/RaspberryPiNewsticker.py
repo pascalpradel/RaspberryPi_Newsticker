@@ -1,22 +1,24 @@
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ReutersWebScraper import ReutersWebScraper
+from datetime import datetime, timedelta
 from LEDMatrix import LEDMatrix
 import threading
 import requests
 import random
 import json
-import time
+
 
 
 #Gloabl Consts:
 DATAFILE_PATH = "displayData.json"
 CONFIG_PATH = "config.json"
 SHUFFLE = True
+LIVEREQUEST = False #not recommended on Pi Zero
 
 #Matrix Constants:
 ROWS = 32
-COLS = 128
-BRIGHTNESS = 75
+COLS = 192
+BRIGHTNESS = 50
 FONT = "fonts/Calibri-26.bdf"
 TEXTCOLOR=[0, 255, 0]
 
@@ -29,8 +31,6 @@ class RaspiPiNewsticker(object):
         self.reutersScraper = ReutersWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
-        self.whileFlag = True
-
         self.iterator = 0
         self.newText = ""
         self.stopThreadCreationFlag = False
@@ -38,26 +38,45 @@ class RaspiPiNewsticker(object):
 
 
     def start(self):
-        self.ledMatrix.setText(self.getNextText())
-        while True:
-            self.ledMatrix.offscreenCanvas.Clear()
-            lenText = self.ledMatrix.lenText()
-            self.ledMatrix.pos -= 1
+        if LIVEREQUEST:
+            self.ledMatrix.text = self.getNextText()
+            while True:
+                self.ledMatrix.offscreenCanvas.Clear()
+                lenText = self.ledMatrix.lenText()
+                self.ledMatrix.pos -= 1
 
-            if (self.ledMatrix.pos + lenText < COLS*4):
-                if self.stopThreadCreationFlag == False:
-                    self.stopThreadCreationFlag = True
-                    threading.Thread(target=self.threadAddNextText).start()
-            
-            #print(self.newTextFlag, self.stopThreadCreationFlag, self.newText)
+                if (self.ledMatrix.pos + lenText < COLS*4):
+                    if self.stopThreadCreationFlag == False:
+                        self.stopThreadCreationFlag = True
+                        threading.Thread(target=self.threadAddNextText).start()
 
-            if self.newTextFlag:
-                if self.newText != None:
-                    self.ledMatrix.text += self.newText
-                    self.newTextFlag = False
+                if self.newTextFlag:
+                    if self.newText != None:
+                        self.ledMatrix.text += self.newText
+                        self.newTextFlag = False
 
-            time.sleep(0.015)
-            self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
+                self.customSleep(0.01)
+
+                self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
+        else:
+            self.requestAll()
+            while True:
+                self.ledMatrix.offscreenCanvas.Clear()
+                lenText = self.ledMatrix.lenText()
+                self.ledMatrix.pos -= 1
+
+                if (self.ledMatrix.pos + lenText < COLS):
+                    if SHUFFLE:
+                        self.displayDataList = self.readJsonData()
+                    else:
+                        self.iterator = 0
+                    self.ledMatrix.text = ""
+                    self.requestAll()
+                    self.ledMatrix.pos = self.ledMatrix.offscreenCanvas.width
+
+                self.customSleep(0.01)
+
+                self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
 
 
     def getNextText(self):
@@ -72,10 +91,14 @@ class RaspiPiNewsticker(object):
                 self.iterator+= 1
             return text + "  "
         else:
-            if SHUFFLE:
-                self.displayDataList = self.readJsonData()
+            if LIVEREQUEST:
+                #self.ledMatrix.text = ""
+                if SHUFFLE:
+                    self.displayDataList = self.readJsonData()
+                else:
+                    self.iterator = 0
             else:
-                self.iterator = 0
+                return None
         
 
     def threadAddNextText(self):
@@ -91,7 +114,7 @@ class RaspiPiNewsticker(object):
 
         elif record[0] == "index":
             exchange, lastPoints, changeValue = self.financeScraper.getCurrentIndexData(record[2], record[1])
-            return str(record[1]) + " [" + str(exchange) + "] " + str(lastPoints) + " ( " + str(changeValue) + ")"
+            return str(record[1]) + " [" + str(exchange) + "] " + str(lastPoints) + " (" + str(changeValue) + ")"
             
         elif record[0] == "reuters":
             headline, publishedTime, publishedTimeRound = self.reutersScraper.getCurrentHeadline(record[2])
@@ -99,7 +122,7 @@ class RaspiPiNewsticker(object):
 
         elif record[0] == "weather":
             temp, humid = self.getWeather(record[2])
-            return str(record[1]) + ": " + str(temp) + "°C &" + str(humid) + "%"
+            return str(record[1]) + ": " + str(temp) + "°C," + str(humid) + "%" + " rH"
 
 
     def getWeather(self, city):
@@ -138,6 +161,21 @@ class RaspiPiNewsticker(object):
         for keys in jsonData["KEYS"]:
             keyList.append(keys["KEY"])
         return keyList[0]
+    
+
+    def customSleep(self, seconds):
+        endTime = datetime.now() + timedelta(seconds=seconds)
+        while datetime.now() < endTime:
+            pass
+
+
+    def requestAll(self):
+        while True:
+            nextText = self.getNextText()
+            if nextText != None:
+                self.ledMatrix.text += nextText
+            else:
+                break
 
 
 

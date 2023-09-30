@@ -33,7 +33,3 @@ class LEDMatrix(object):
 
     def lenText(self):
         return graphics.DrawText(self.offscreenCanvas, self.font, self.pos, 26, self.textColor, self.text)
-
-
-    def setText(self, text):
-        self.text = text
