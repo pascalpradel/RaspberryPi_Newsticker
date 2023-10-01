@@ -6,7 +6,7 @@ import time
 # Configuration for the matrix
 options = RGBMatrixOptions()
 options.rows = 32
-options.cols = 128
+options.cols = 192
 options.chain_length = 1
 options.parallel = 1
 options.row_address_type = 0

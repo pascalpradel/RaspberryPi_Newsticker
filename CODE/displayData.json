@@ -275,6 +275,56 @@
             "type": "weather",
             "topic": "Weather Berlin",
             "url": "Berlin"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "1",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "2",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "3",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "4",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "5",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "6",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "7",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "8",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "9",
+            "url": "https://www.zeit.de/news/index"
+        },
+        {
+            "type": "ZeitOnline",
+            "topic": "10",
+            "url": "https://www.zeit.de/news/index"
         }
     ]
 }

@@ -1,4 +1,5 @@
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
+from ZEITOnlineWebScraper import ZEITOnlineWebScraper
 from ReutersWebScraper import ReutersWebScraper
 from datetime import datetime, timedelta
 from LEDMatrix import LEDMatrix
@@ -13,15 +14,18 @@ import json
 DATAFILE_PATH = "displayData.json"
 CONFIG_PATH = "config.json"
 SHUFFLE = True
-LIVEREQUEST = False #not recommended on Pi Zero
+LIVEREQUEST = True #not recommended on Pi Zero
 STOPTIME = 22 #Uhr
+SHOWTIMECYCLE = True
+TIMECYCLE = 5 #shows current time every x news, only available in LIVEREQUEST Mode
 
 #Matrix Constants:
 ROWS = 32
 COLS = 192
-BRIGHTNESS = 50
+BRIGHTNESS = 35
 FONT = "fonts/Calibri-26.bdf"
-TEXTCOLOR=[0, 255, 0]
+TEXTCOLOR=[0, 155, 0]
+
 
 
 class RaspiPiNewsticker(object):
@@ -30,6 +34,7 @@ class RaspiPiNewsticker(object):
         self.OWM_API_KEY = self.readConfig()
         self.financeScraper = GoogleFinanceWebScraper()
         self.reutersScraper = ReutersWebScraper()
+        self.zeitScraper = ZEITOnlineWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
         self.iterator = 0
@@ -43,6 +48,7 @@ class RaspiPiNewsticker(object):
     def start(self):
         if LIVEREQUEST:
             self.ledMatrix.text = self.getNextText()
+            timeCycle = TIMECYCLE
             while True:
                 self.ledMatrix.offscreenCanvas.Clear()
                 lenText = self.ledMatrix.lenText()
@@ -50,20 +56,23 @@ class RaspiPiNewsticker(object):
 
                 if (self.ledMatrix.pos + lenText < COLS*4):
                     if self.stopThreadCreationFlag == False:
-                        self.stopThreadCreationFlag = True
-                        threading.Thread(target=self.threadAddNextText).start()
+                        if timeCycle >= 0 and SHOWTIMECYCLE:
+                            self.stopThreadCreationFlag = True
+                            threading.Thread(target=self.threadAddNextText).start()
+                            timeCycle -= 1
+                        else:
+                            self.ledMatrix.text+= " " + datetime.now().strftime('%H:%M') + " Uhr  "
+                            timeCycle = TIMECYCLE
 
                 if self.newTextFlag:
                     if self.newText != None:
                         self.ledMatrix.text += self.newText
                         self.newTextFlag = False
 
-                self.customSleep(0.01)
+                self.customSleep(0.015)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
 
-                if self.isAfter():
-                    break
         else:
             self.requestAll()
             while True:
@@ -80,12 +89,9 @@ class RaspiPiNewsticker(object):
                     self.requestAll()
                     self.ledMatrix.pos = self.ledMatrix.offscreenCanvas.width
 
-                self.customSleep(0.01)
+                self.customSleep(0.015)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
-
-                if self.isAfter():
-                    break
 
 
     def getNextText(self):
@@ -131,7 +137,11 @@ class RaspiPiNewsticker(object):
 
         elif record[0] == "weather":
             temp, humid = self.getWeather(record[2])
-            return str(record[1]) + ": " + str(temp) + "°C," + str(humid) + "%" + " rH"
+            return str(record[1]) + ": " + str(temp) + "°C, " + str(humid) + "%" + " rH"
+        
+        elif record[0] == "ZeitOnline":
+            headline, timePostet = self.zeitScraper.getHeadline(record[2], int(record[1]))
+            return " " + headline + " [" + timePostet + "]"
 
 
     def getWeather(self, city):
@@ -185,12 +195,6 @@ class RaspiPiNewsticker(object):
                 self.ledMatrix.text += nextText
             else:
                 break
-
-
-    def isAfter(self):
-        currentHour = datetime.now().hour
-        return currentHour > STOPTIME
-
 
 
 

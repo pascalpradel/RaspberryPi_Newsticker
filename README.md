@@ -116,8 +116,8 @@
 
     [Service]
     Type=idle
-    ExecStart=python /home/pi/PythonNewsTicker/CODE/RaspberryPiNewsticker.py
-    WorkingDirectory=/home/pascal/PythonNewsTicker/CODE
+    ExecStart=python /home/pi/RaspberryPi_Newsticker/CODE/RaspberryPiNewsticker.py
+    WorkingDirectory=/home/pi/RaspberryPi_Newsticker/CODE
     Restart=always
     User=root
 
