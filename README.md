@@ -133,7 +133,8 @@
 
     `sudo nano /etc/systemd/system/script-runner.timer`
 
-- Enter following code and Save with Str + X
+- Enter following code and Save with Str + X 
+- Edit: Timer is probably not necessary
   
     ```python
     [Unit]

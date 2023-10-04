@@ -7,6 +7,8 @@ import threading
 import requests
 import random
 import json
+import time
+import sys
 
 
 
@@ -15,7 +17,6 @@ DATAFILE_PATH = "displayData.json"
 CONFIG_PATH = "config.json"
 SHUFFLE = True
 LIVEREQUEST = True #not recommended on Pi Zero
-STOPTIME = 22 #Uhr
 SHOWTIMECYCLE = True
 TIMECYCLE = 5 #shows current time every x news, only available in LIVEREQUEST Mode
 
@@ -41,6 +42,11 @@ class RaspiPiNewsticker(object):
         self.newText = ""
         self.stopThreadCreationFlag = False
         self.newTextFlag = False
+
+        if self.isNightTime():
+            print("Sleep for one hour")
+            time.sleep(3600)
+            sys.exit()
 
         print("Started at ", datetime.now())
 
@@ -69,6 +75,9 @@ class RaspiPiNewsticker(object):
                         self.ledMatrix.text += self.newText
                         self.newTextFlag = False
 
+                if self.isNightTime():
+                    break
+
                 self.customSleep(0.015)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
@@ -88,6 +97,9 @@ class RaspiPiNewsticker(object):
                     self.ledMatrix.text = ""
                     self.requestAll()
                     self.ledMatrix.pos = self.ledMatrix.offscreenCanvas.width
+
+                if self.isNightTime():
+                    break
 
                 self.customSleep(0.015)
 
@@ -195,6 +207,11 @@ class RaspiPiNewsticker(object):
                 self.ledMatrix.text += nextText
             else:
                 break
+
+
+    def isNightTime(self):
+        currentHour = datetime.now().hour
+        return currentHour >= 22 or currentHour <= 7
 
 
 
