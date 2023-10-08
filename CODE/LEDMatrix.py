@@ -32,4 +32,9 @@ class LEDMatrix(object):
 
 
     def lenText(self):
+        """
+        Calculates Len of text to display and returns it
+        input: /
+        output: len of text
+        """
         return graphics.DrawText(self.offscreenCanvas, self.font, self.pos, 26, self.textColor, self.text)

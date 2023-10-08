@@ -19,6 +19,11 @@ class GoogleFinanceWebScraper(object):
 
 
     def getCurrentStockData(self, url, name):
+        """
+        Scraper function for stock values at Google Finance
+        input: Google Finance URL and name of stock
+        output: exchange, currency, price, difference in % to last day
+        """
         try:
             content =  self.getPage(url)
 
@@ -43,6 +48,11 @@ class GoogleFinanceWebScraper(object):
         
 
     def getCurrentIndexData(self, url, name):
+        """
+        Scraper function for index values or crypto at Google Finance
+        input: Google Finance URL and name of index/crypto
+        output: exchange, price/points, difference in % to last day
+        """
         try:
             content =  self.getPage(url)
 
@@ -64,6 +74,11 @@ class GoogleFinanceWebScraper(object):
 
 
     def getPage(self, url):
+        """
+        Pulls the web page with request
+        input: Google Finance URL
+        output: Page HTML code
+        """
         response = self.session.get(url)
         if self.saveLastPage:
             with open("lastSite.html", "w") as file:
@@ -72,6 +87,11 @@ class GoogleFinanceWebScraper(object):
     
 
     def calculateDifference(self, value, cachedValue):
+        """
+        Calulates to difference to last day
+        Input: Current Value, Last Value
+        output: Formattet string with difference
+        """
         change = ((value - cachedValue) / cachedValue) * 100
         if value-cachedValue >= 0:
             return "+" + str(round(change,1)) + "%"
@@ -80,6 +100,11 @@ class GoogleFinanceWebScraper(object):
     
 
     def loadStockDataCache(self):
+        """
+        Reads Cached Data Json
+        input: /
+        output: Cached Data List
+        """
         try:
             file = open(self.stockDataCachePath, "r")
             jsonData = json.load(file)
@@ -96,6 +121,11 @@ class GoogleFinanceWebScraper(object):
     
 
     def updateStockDataCacheList(self, stockName, stockValue):
+        """
+        Updates the Value in Cached Data Json
+        input: Name of Stock/Index, Value of Stock/Index
+        output: Value of Stock/Index
+        """
         foundFlag = False
         for stock in self.stockDataCacheList:
             if stock[0] == stockName:
@@ -113,6 +143,9 @@ class GoogleFinanceWebScraper(object):
 
 
     def saveStockDataCacheList(self):
+        """
+        Dumps List Back to Json File
+        """
         stockDicList = []
         for stock in self.stockDataCacheList:
             stockDicList.append(dict(zip(DATAZIP, stock)))

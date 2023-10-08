@@ -8,6 +8,11 @@ class ZEITOnlineWebScraper(object):
 
 
     def getHeadline(self, url, headlineNumber=1):
+        """
+        Retrieves current headline from Zeit Online besed on URL and Number of Article
+        input: Zeit Online URL
+        output: Headline of Article, Publish Time
+        """
         content = self.getPage(url)
 
         posTitleOffset = 0
@@ -28,6 +33,11 @@ class ZEITOnlineWebScraper(object):
 
 
     def getPage(self, url):
+        """
+        Pulls the web page with request
+        input: Zeit Online URL
+        output: Page HTML code
+        """
         response = self.session.get(url)
         if self.saveLastPage:
             with open("lastSite.html", "w") as file:

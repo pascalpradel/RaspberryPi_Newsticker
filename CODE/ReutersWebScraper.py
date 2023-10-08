@@ -9,6 +9,11 @@ class ReutersWebScraper(object):
 
 
     def getCurrentHeadline(self, url):
+        """
+        Retrieves current headline from Reuters based on URL
+        input: Reuters URL
+        output: Headline of Article, Publish Time, Publish Time in HH:mm format
+        """
         try:
             content = self.getPage(url)
 
@@ -28,6 +33,11 @@ class ReutersWebScraper(object):
 
 
     def getPage(self, url):
+        """
+        Pulls the web page with request
+        input: Reuters URL
+        output: Page HTML code
+        """
         response = self.session.get(url)
         if self.saveLastPage:
             with open("lastSite.html", "w") as file:

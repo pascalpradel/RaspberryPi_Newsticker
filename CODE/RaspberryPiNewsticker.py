@@ -19,6 +19,7 @@ SHUFFLE = True
 LIVEREQUEST = True #not recommended on Pi Zero
 SHOWTIMECYCLE = True
 TIMECYCLE = 5 #shows current time every x news, only available in LIVEREQUEST Mode
+COUNTRUNS = 5 #Resets text for better performance after x complete runs
 
 #Matrix Constants:
 ROWS = 32
@@ -39,19 +40,24 @@ class RaspiPiNewsticker(object):
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
         self.iterator = 0
+        self.counterRuns = 0
         self.newText = ""
         self.stopThreadCreationFlag = False
         self.newTextFlag = False
 
         if self.isNightTime():
             print("Sleep for one hour")
-            time.sleep(3600)
+            time.sleep(1800)
             sys.exit()
 
         print("Started at ", datetime.now())
 
 
     def start(self):
+        """
+        Main function with wile loop
+        Different Loops bases on settings from Consts
+        """
         if LIVEREQUEST:
             self.ledMatrix.text = self.getNextText()
             timeCycle = TIMECYCLE
@@ -81,7 +87,6 @@ class RaspiPiNewsticker(object):
                 self.customSleep(0.015)
 
                 self.ledMatrix.offscreenCanvas = self.ledMatrix.matrix.SwapOnVSync(self.ledMatrix.offscreenCanvas)
-
         else:
             self.requestAll()
             while True:
@@ -107,6 +112,12 @@ class RaspiPiNewsticker(object):
 
 
     def getNextText(self):
+        """
+        Retrieves next Text/Article bases on settings from Global Consts
+        Resets text var after x runs
+        input: /
+        output: text for display
+        """
         if len(self.displayDataList) > 0 or self.iterator > len(self.displayDataList):
             if SHUFFLE:
                 randNr = random.randint(0, len(self.displayDataList)-1)
@@ -122,19 +133,39 @@ class RaspiPiNewsticker(object):
                 #self.ledMatrix.text = ""
                 if SHUFFLE:
                     self.displayDataList = self.readJsonData()
+                    if self.counterRuns >= COUNTRUNS:
+                        self.ledMatrix.text = ""
+                        self.counterRuns = 0
+                        self.ledMatrix.pos = self.ledMatrix.offscreenCanvas.width
+                    else:
+                        self.counterRuns+= 1
                 else:
                     self.iterator = 0
+                    if self.counterRuns >= COUNTRUNS:
+                        self.ledMatrix.text = ""
+                        self.counterRuns = 0
+                        self.ledMatrix.pos = self.ledMatrix.offscreenCanvas.width
+                    else:
+                        self.counterRuns+= 1
             else:
                 return None
         
 
     def threadAddNextText(self):
+        """
+        Threading function to get next Text
+        """
         self.newText = self.getNextText()
         self.newTextFlag = True
         self.stopThreadCreationFlag = False
 
 
     def displayRecord(self, record):
+        """
+        Retrieves next text/article based on the type of article from Display Data Json
+        input: record from Display Data Json
+        output: String to display
+        """
         if record[0] == "stock":
             exchange, currency, lastPrice, changeValue = self.financeScraper.getCurrentStockData(record[2], record[1])
             return str(record[1]) + " [" + str(exchange) + "] " + str(lastPrice) + " " + str(currency) + " ( " + str(changeValue) + ")"
@@ -157,6 +188,11 @@ class RaspiPiNewsticker(object):
 
 
     def getWeather(self, city):
+        """
+        Gets current weather ftom OpenWeatherMap via API
+        input: city
+        output: temp, humidity
+        """
         url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + self.OWM_API_KEY + "&units=metric"
         response = requests.get(url)
         data = response.json()
@@ -171,6 +207,11 @@ class RaspiPiNewsticker(object):
 
 
     def readJsonData(self):
+        """
+        Reads Display Data Json
+        input: /
+        output: Display Data Json as List
+        """
         file = open(DATAFILE_PATH, "r")
         jsonData = json.load(file)
         file.close()
@@ -184,6 +225,11 @@ class RaspiPiNewsticker(object):
     
 
     def readConfig(self):
+        """
+        Reads COnfig Json for API Keys
+        input: /
+        output: List of API Keys
+        """
         file = open(CONFIG_PATH, "r")
         jsonData = json.load(file)
         file.close()
@@ -195,12 +241,22 @@ class RaspiPiNewsticker(object):
     
 
     def customSleep(self, seconds):
+        """
+        Custom Sleep Function for better performaance
+        input: time of sleep in sec
+        output: /
+        """
         endTime = datetime.now() + timedelta(seconds=seconds)
         while datetime.now() < endTime:
             pass
 
 
     def requestAll(self):
+        """
+        Requests all Text/Articles from Display Data Json in one run and creates string
+        input: /
+        output: /
+        """
         while True:
             nextText = self.getNextText()
             if nextText != None:
@@ -210,8 +266,11 @@ class RaspiPiNewsticker(object):
 
 
     def isNightTime(self):
+        """
+        Checks if current time is bewteen 22 Uhr (10 PM) and 6 Uhr (6 AM)
+        """
         currentHour = datetime.now().hour
-        return currentHour >= 22 or currentHour <= 7
+        return currentHour >= 22 or currentHour <= 6
 
 
 
