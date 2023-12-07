@@ -5,8 +5,8 @@ class ReutersWebScraper(object):
     def __init__(self, saveLastPage=False):
         self.saveLastPage = saveLastPage
         self.session = requests.Session()
-        self.session.cookies.set("CONSENT", "PENDING+229")
-
+        self.session.cookies.set("CONSENT", "PENDING+400")
+    
 
     def getCurrentHeadline(self, url):
         """
@@ -38,15 +38,15 @@ class ReutersWebScraper(object):
         input: Reuters URL
         output: Page HTML code
         """
-        response = self.session.get(url)
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+        response = self.session.get(url, headers=headers)
         if self.saveLastPage:
             with open("lastSite.html", "w") as file:
                 file.write(str(response.content))
         return response.content.decode('utf-8')
 
-"""
+
 if __name__ == '__main__':
     reutersScraper = ReutersWebScraper(True)
     data = reutersScraper.getCurrentHeadline("https://www.reuters.com/breakingviews/")
     print(data)
-"""

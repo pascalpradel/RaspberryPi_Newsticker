@@ -45,9 +45,8 @@ class ZEITOnlineWebScraper(object):
         return response.content.decode('utf-8')
 
 
-"""
+
 if __name__ == '__main__':
     reutersScraper = ZEITOnlineWebScraper(True)
     data = reutersScraper.getHeadline("https://www.zeit.de/news/index", 3)
     print(data)
-"""

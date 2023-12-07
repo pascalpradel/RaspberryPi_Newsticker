@@ -154,9 +154,8 @@ class GoogleFinanceWebScraper(object):
         with open(self.stockDataCachePath, "w") as file:
             json.dump(cacheDicList, file, indent=2)
 
-"""
+
 if __name__ == '__main__':
     financeScraper = GoogleFinanceWebScraper(True)
     data = financeScraper.getCurrentStockData("https://www.google.com/finance/quote/SIE:ETR", "Siemens")
     print(data)
-"""

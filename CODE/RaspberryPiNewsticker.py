@@ -1,6 +1,6 @@
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ZEITOnlineWebScraper import ZEITOnlineWebScraper
-from ReutersWebScraper import ReutersWebScraper
+from BloombergWebScraper import BloombergWebScraper
 from datetime import datetime, timedelta
 from LEDMatrix import LEDMatrix
 import threading
@@ -35,7 +35,7 @@ class RaspiPiNewsticker(object):
         self.displayDataList = self.readJsonData()
         self.OWM_API_KEY = self.readConfig()
         self.financeScraper = GoogleFinanceWebScraper()
-        self.reutersScraper = ReutersWebScraper()
+        self.bloombergScraper = BloombergWebScraper()
         self.zeitScraper = ZEITOnlineWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
@@ -174,9 +174,9 @@ class RaspiPiNewsticker(object):
             exchange, lastPoints, changeValue = self.financeScraper.getCurrentIndexData(record[2], record[1])
             return str(record[1]) + " [" + str(exchange) + "] " + str(lastPoints) + " (" + str(changeValue) + ")"
             
-        elif record[0] == "reuters":
-            headline, publishedTime, publishedTimeRound = self.reutersScraper.getCurrentHeadline(record[2])
-            return str(headline) + " [" + str(publishedTimeRound) + "]"
+        elif record[0] == "Bloomberg":
+            headline = self.bloombergScraper.getCurrentHeadline(record[2], int(record[1]))
+            return str(headline)
 
         elif record[0] == "weather":
             temp, humid = self.getWeather(record[2])
