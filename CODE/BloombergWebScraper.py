@@ -54,6 +54,7 @@ class BloombergWebScraper(object):
 
 if __name__ == '__main__':
     bloombergScraper = BloombergWebScraper(True)
-    data = bloombergScraper.getCurrentHeadline("https://www.bloomberg.com/europe",30)
-    #data = bloombergScraper.getCurrentHeadline("https://www.bloomberg.com/economics", 9)
+    #data = bloombergScraper.getCurrentHeadline("https://www.bloomberg.com/europe",30)
+    #data = bloombergScraper.getCurrentHeadline("https://www.bloomberg.com/markets", 2)
+    data = bloombergScraper.getCurrentHeadline("https://www.bloomberg.com/industries", 10)
     print(data)
