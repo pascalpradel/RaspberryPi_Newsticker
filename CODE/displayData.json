@@ -67,6 +67,46 @@
             "url": "https://www.google.com/finance/quote/7CD:FRA"
         },
         {
+            "type": "stock",
+            "topic": "General Electric",
+            "url": "https://www.google.com/finance/quote/GE:NYSE"
+        },
+        {
+            "type": "stock",
+            "topic": "SAP",
+            "url": "https://www.google.com/finance/quote/SAP:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Visa Inc.",
+            "url": "https://www.google.com/finance/quote/V:NYSE"
+        },
+        {
+            "type": "stock",
+            "topic": "Autodesk",
+            "url": "https://www.google.com/finance/quote/ADSK:NASDAQ"
+        },
+        {
+            "type": "stock",
+            "topic": "Lilium",
+            "url": "https://www.google.com/finance/quote/LILM:NASDAQ"
+        },
+        {
+            "type": "stock",
+            "topic": "Tesla, Inc.",
+            "url": "https://www.google.com/finance/quote/TL0:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Deutsche Bank AG",
+            "url": "https://www.google.com/finance/quote/DBK:ETR"
+        },
+        {
+            "type": "stock",
+            "topic": "Bayer AG",
+            "url": "https://www.google.com/finance/quote/BAYN:ETR"
+        },
+        {
             "type": "index",
             "topic": "DAX Performance Index",
             "url": "https://www.google.com/finance/quote/DAX:INDEXDB"
@@ -85,6 +125,11 @@
             "type": "index",
             "topic": "Dogecoin",
             "url": "https://www.google.com/finance/quote/DOGE-EUR"
+        },
+        {
+            "type": "index",
+            "topic": "STOXX Europe 50",
+            "url": "https://www.google.com/finance/quote/SX5R:INDEXSTOXX"
         },
         {
             "type": "weather",
@@ -245,6 +290,57 @@
             "type": "Bloomberg",
             "topic": "13",
             "url": "https://www.bloomberg.com/industries"
+        },
+        {
+            "type": "Nature",
+            "topic": "1",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "2",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "3",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "4",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "5",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "6",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "7",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "8",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "9",
+            "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "Nature",
+            "topic": "10",
+            "url": "https://www.nature.com/news"
         }
+
     ]
 }

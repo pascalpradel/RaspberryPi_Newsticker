@@ -1,6 +1,7 @@
 from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ZEITOnlineWebScraper import ZEITOnlineWebScraper
 from BloombergWebScraper import BloombergWebScraper
+from NatureNewsWebScraper import NatureNewsWebScraper
 from datetime import datetime, timedelta
 from LEDMatrix import LEDMatrix
 import threading
@@ -37,6 +38,7 @@ class RaspiPiNewsticker(object):
         self.financeScraper = GoogleFinanceWebScraper()
         self.bloombergScraper = BloombergWebScraper()
         self.zeitScraper = ZEITOnlineWebScraper()
+        self.natureScraper = NatureNewsWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
         self.iterator = 0
@@ -184,6 +186,10 @@ class RaspiPiNewsticker(object):
         
         elif record[0] == "ZeitOnline":
             headline, timePostet = self.zeitScraper.getHeadline(record[2], int(record[1]))
+            return " " + headline + " [" + timePostet + "]"
+        
+        elif record[0] == "Nature":
+            headline, timePostet = self.natureScraper.getHeadline(record[2], int(record[1]))
             return " " + headline + " [" + timePostet + "]"
 
 

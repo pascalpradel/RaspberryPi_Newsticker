@@ -2,7 +2,7 @@ import requests
 import html
 
 
-class ZEITOnlineWebScraper(object):
+class NatureNewsWebScraper(object):
     def __init__(self, saveLastPage=False):
         self.saveLastPage = saveLastPage
         self.session = requests.Session()
@@ -11,24 +11,26 @@ class ZEITOnlineWebScraper(object):
     def getHeadline(self, url, headlineNumber=1):
         """
         Retrieves current headline from Zeit Online besed on URL and Number of Article
-        input: Zeit Online URL
+        input: Nature News Url
         output: Headline of Article, Publish Time
         """
         content = self.getPage(url)
 
         posTitleOffset = 0
         while headlineNumber > 0:
-            posTitle = content.find('<span class="visually-hidden">: </span><span class="zon-teaser__title zon-teaser__title--small">', posTitleOffset)
-            posEndTitle = content.find('<', posTitle+96)
+            posTitle = content.find('<h3 class="c-card__title u-serif u-text17 u-font-weight--regular">', posTitleOffset)
+            posEndTitle = content.find('<', posTitle+66)
             posTitleOffset = posEndTitle
             headlineNumber -= 1
 
-        posTimeClass = content.find('<time datetime="')
+        posTimeClass = content.find('<span class="c-card__date u-sans-serif u-text13 u-upper">')
         posTime = content.find('">', posTimeClass+16)
         posEndTime = content.find("<", posTime+2)
 
-        headline = content[posTitle+96:posEndTitle]
+        headline = content[posTitle+66:posEndTitle]
         timePostet = content[posTime+2:posEndTime]
+
+        timePostet = timePostet.split(" 20")[0]
 
         return headline, timePostet
 
@@ -36,7 +38,7 @@ class ZEITOnlineWebScraper(object):
     def getPage(self, url):
         """
         Pulls the web page with request
-        input: Zeit Online URL
+        input: Nature News URL
         output: Page HTML code
         """
         response = self.session.get(url)
@@ -51,5 +53,5 @@ class ZEITOnlineWebScraper(object):
 
 
 if __name__ == '__main__':
-    zeitScraper = ZEITOnlineWebScraper(True)
-    print(zeitScraper.getHeadline("https://www.zeit.de/news/index", 1))
+    natureScraper = NatureNewsWebScraper(True)
+    print(natureScraper.getHeadline("https://www.nature.com/news", 1))
