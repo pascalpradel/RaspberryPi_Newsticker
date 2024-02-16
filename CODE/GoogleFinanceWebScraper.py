@@ -24,27 +24,27 @@ class GoogleFinanceWebScraper(object):
         input: Google Finance URL and name of stock
         output: exchange, currency, price, difference in % to last day
         """
-        #try:
-        content =  self.getPage(url)
+        try:
+            content =  self.getPage(url)
 
-        posExchange = content.find('data-exchange="')
-        posEndExchange = content.find('"', posExchange+16)
-        posCurrency = content.find('data-currency-code="')
-        posEndCurrency = content.find('"',posCurrency+21)
-        posLastPrice = content.find('data-last-price="')
-        posEndLastPrice = content.find('"', posLastPrice+18)
+            posExchange = content.find('data-exchange="')
+            posEndExchange = content.find('"', posExchange+16)
+            posCurrency = content.find('data-currency-code="')
+            posEndCurrency = content.find('"',posCurrency+21)
+            posLastPrice = content.find('data-last-price="')
+            posEndLastPrice = content.find('"', posLastPrice+18)
 
-        exchange = content[posExchange+15:posEndExchange]
-        currency = content[posCurrency+20:posEndCurrency]
-        lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
+            exchange = content[posExchange+15:posEndExchange]
+            currency = content[posCurrency+20:posEndCurrency]
+            lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
 
-        cachePrice = self.updateStockDataCacheList(name, lastPrice)
-        self.saveStockDataCacheList()
+            cachePrice = self.updateStockDataCacheList(name, lastPrice)
+            self.saveStockDataCacheList()
 
-        return exchange, currency, self.roundIfNecessary(lastPrice), self.calculateDifference(float(lastPrice), float(cachePrice))
+            return exchange, currency, self.roundIfNecessary(lastPrice), self.calculateDifference(float(lastPrice), float(cachePrice))
 
-        #except:
-        #    return "ERROR", "ERROR", "0.0", "ERROR"
+        except:
+            return "ERROR", "ERROR", "0.0", "ERROR"
         
 
     def getCurrentIndexData(self, url, name):
@@ -105,19 +105,19 @@ class GoogleFinanceWebScraper(object):
         input: /
         output: Cached Data List
         """
-        #try:
-        file = open(self.stockDataCachePath, "r")
-        jsonData = json.load(file)
-        file.close()
+        try:
+            file = open(self.stockDataCachePath, "r")
+            jsonData = json.load(file)
+            file.close()
 
-        stockDataCache = []
-        for stock in jsonData["stockValues"]:
-            record = [stock["name"], stock["value"], stock["lastChange"]]
-            stockDataCache.append(record)
-        
-        return stockDataCache
-        #except:
-        #    return []
+            stockDataCache = []
+            for stock in jsonData["stockValues"]:
+                record = [stock["name"], stock["value"], stock["lastChange"]]
+                stockDataCache.append(record)
+            
+            return stockDataCache
+        except:
+            return []
     
 
     def updateStockDataCacheList(self, stockName, stockValue):
