@@ -1,4 +1,5 @@
 import requests
+import html
 
 
 class ZEITOnlineWebScraper(object):
@@ -17,16 +18,16 @@ class ZEITOnlineWebScraper(object):
 
         posTitleOffset = 0
         while headlineNumber > 0:
-            posTitle = content.find('</span><span class="visually-hidden">: </span><span class="zon-teaser-news__title">', posTitleOffset)
-            posEndTitle = content.find('<', posTitle+84)
+            posTitle = content.find('<span class="visually-hidden">: </span><span class="zon-teaser__title zon-teaser__title--small">', posTitleOffset)
+            posEndTitle = content.find('<', posTitle+96)
             posTitleOffset = posEndTitle
             headlineNumber -= 1
 
-        posTimeClass = content.find('<time class="zon-teaser-news__date" datetime=')
-        posTime = content.find('">', posTimeClass+46)
+        posTimeClass = content.find('<time datetime="')
+        posTime = content.find('">', posTimeClass+16)
         posEndTime = content.find("<", posTime+2)
 
-        headline = content[posTitle+83:posEndTitle]
+        headline = content[posTitle+96:posEndTitle]
         timePostet = content[posTime+2:posEndTime]
 
         return headline, timePostet
@@ -39,14 +40,16 @@ class ZEITOnlineWebScraper(object):
         output: Page HTML code
         """
         response = self.session.get(url)
+        response = response.content.decode('utf-8')
+        response = html.unescape(response)
+
         if self.saveLastPage:
-            with open("lastSite.html", "w") as file:
-                file.write(str(response.content))
-        return response.content.decode('utf-8')
+            with open("lastSite.html", "w", encoding='utf-8') as file:
+                file.write(str(response))
+        return response
 
 
 
 if __name__ == '__main__':
     reutersScraper = ZEITOnlineWebScraper(True)
-    data = reutersScraper.getHeadline("https://www.zeit.de/news/index", 3)
-    print(data)
+    print(reutersScraper.getHeadline("https://www.zeit.de/news/index", 1))

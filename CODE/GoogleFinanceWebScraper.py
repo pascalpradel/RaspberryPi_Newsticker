@@ -24,27 +24,27 @@ class GoogleFinanceWebScraper(object):
         input: Google Finance URL and name of stock
         output: exchange, currency, price, difference in % to last day
         """
-        try:
-            content =  self.getPage(url)
+        #try:
+        content =  self.getPage(url)
 
-            posExchange = content.find('data-exchange="')
-            posEndExchange = content.find('"', posExchange+16)
-            posCurrency = content.find('data-currency-code="')
-            posEndCurrency = content.find('"',posCurrency+21)
-            posLastPrice = content.find('data-last-price="')
-            posEndLastPrice = content.find('"', posLastPrice+18)
+        posExchange = content.find('data-exchange="')
+        posEndExchange = content.find('"', posExchange+16)
+        posCurrency = content.find('data-currency-code="')
+        posEndCurrency = content.find('"',posCurrency+21)
+        posLastPrice = content.find('data-last-price="')
+        posEndLastPrice = content.find('"', posLastPrice+18)
 
-            exchange = content[posExchange+15:posEndExchange]
-            currency = content[posCurrency+20:posEndCurrency]
-            lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
+        exchange = content[posExchange+15:posEndExchange]
+        currency = content[posCurrency+20:posEndCurrency]
+        lastPrice = content[posLastPrice+17:posEndLastPrice].replace(',','.')
 
-            cachePrice = self.updateStockDataCacheList(name, lastPrice)
-            self.saveStockDataCacheList()
+        cachePrice = self.updateStockDataCacheList(name, lastPrice)
+        self.saveStockDataCacheList()
 
-            return exchange, currency, lastPrice, self.calculateDifference(float(lastPrice), float(cachePrice))
+        return exchange, currency, self.roundIfNecessary(lastPrice), self.calculateDifference(float(lastPrice), float(cachePrice))
 
-        except:
-            return "ERROR", "ERROR", "0.0", "ERROR"
+        #except:
+        #    return "ERROR", "ERROR", "0.0", "ERROR"
         
 
     def getCurrentIndexData(self, url, name):
@@ -67,7 +67,7 @@ class GoogleFinanceWebScraper(object):
             cachePoints = self.updateStockDataCacheList(name, lastPoints)
             self.saveStockDataCacheList()
 
-            return exchange, lastPoints, self.calculateDifference(float(lastPoints), float(cachePoints))
+            return exchange, self.roundIfNecessary(lastPoints), self.calculateDifference(float(lastPoints), float(cachePoints))
 
         except:
             return "ERROR", "0.0", "ERROR"
@@ -105,19 +105,19 @@ class GoogleFinanceWebScraper(object):
         input: /
         output: Cached Data List
         """
-        try:
-            file = open(self.stockDataCachePath, "r")
-            jsonData = json.load(file)
-            file.close()
-    
-            stockDataCache = []
-            for stock in jsonData["stockValues"]:
-                record = [stock["name"], stock["value"], stock["lastChange"]]
-                stockDataCache.append(record)
-            
-            return stockDataCache
-        except:
-            return []
+        #try:
+        file = open(self.stockDataCachePath, "r")
+        jsonData = json.load(file)
+        file.close()
+
+        stockDataCache = []
+        for stock in jsonData["stockValues"]:
+            record = [stock["name"], stock["value"], stock["lastChange"]]
+            stockDataCache.append(record)
+        
+        return stockDataCache
+        #except:
+        #    return []
     
 
     def updateStockDataCacheList(self, stockName, stockValue):
@@ -155,7 +155,22 @@ class GoogleFinanceWebScraper(object):
             json.dump(cacheDicList, file, indent=2)
 
 
+    def roundIfNecessary(self, inputString):
+        """
+        Rounds if more than two decimal places
+        input: float as string
+        output: string (rounded)
+        """
+        parts = inputString.split(".")
+        
+        if len(parts) > 1 and len(parts[1]) > 2:
+            rounded_value = round(float(inputString), 2)
+            return str(rounded_value)
+        else:
+            return inputString
+
+
 if __name__ == '__main__':
-    financeScraper = GoogleFinanceWebScraper(True)
-    data = financeScraper.getCurrentStockData("https://www.google.com/finance/quote/SIE:ETR", "Siemens")
-    print(data)
+    financeScraper = GoogleFinanceWebScraper()
+    print(financeScraper.getCurrentStockData("https://www.google.com/finance/quote/SIE:ETR", "Siemens"))
+    print(financeScraper.getCurrentIndexData("https://www.google.com/finance/quote/BTC-EUR", "Bitcoin"))
