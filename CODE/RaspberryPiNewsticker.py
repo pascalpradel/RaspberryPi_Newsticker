@@ -21,6 +21,7 @@ CONFIG_PATH = "config.json"
 SHUFFLE = True
 LIVEREQUEST = True #not recommended on Pi Zero
 SHOWTIMECYCLE = True
+OVERRIDENIGHTTIME = False
 TIMECYCLE = 5 #shows current time every x news, only available in LIVEREQUEST Mode
 COUNTRUNS = 5 #Resets text for better performance after x complete runs
 
@@ -203,7 +204,7 @@ class RaspiPiNewsticker(object):
                 return " " + headline + " [" + timePostet + "]"
         
         elif record[0] == "TheEconomist":
-            headline, timePostet = self.economistScraperScraper.getCurrentHeadline(record[2], int(record[1]))
+            headline, timePostet = self.economistScraper.getCurrentHeadline(record[2], int(record[1]))
             if headline != "ERROR":
                 return " " + headline + " [" + timePostet + "]"
             
@@ -294,6 +295,8 @@ class RaspiPiNewsticker(object):
         """
         Checks if current time is bewteen 23 Uhr (11 PM) and 6 Uhr (6 AM)
         """
+        if OVERRIDENIGHTTIME:
+            return False
         currentHour = datetime.now().hour
         return currentHour >= 23 or currentHour <= 6
 
