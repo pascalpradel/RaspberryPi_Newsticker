@@ -199,97 +199,77 @@
         {
             "type": "Bloomberg",
             "topic": "1",
-            "url": "https://www.bloomberg.com/europe"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "2",
-            "url": "https://www.bloomberg.com/europe"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "3",
-            "url": "https://www.bloomberg.com/europe"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "4",
-            "url": "https://www.bloomberg.com/europe"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "5",
-            "url": "https://www.bloomberg.com/europe"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
-            "topic": "1",
-            "url": "https://www.bloomberg.com/markets"
+            "topic": "6",
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
-            "topic": "2",
-            "url": "https://www.bloomberg.com/markets"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "3",
-            "url": "https://www.bloomberg.com/markets"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "4",
-            "url": "https://www.bloomberg.com/markets"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "5",
-            "url": "https://www.bloomberg.com/markets"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "5",
-            "url": "https://www.bloomberg.com/markets"
+            "topic": "7",
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "8",
-            "url": "https://www.bloomberg.com/economics"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "9",
-            "url": "https://www.bloomberg.com/economics"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "10",
-            "url": "https://www.bloomberg.com/economics"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "11",
-            "url": "https://www.bloomberg.com/economics"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "10",
-            "url": "https://www.bloomberg.com/industries"
-        },
-        {
-            "type": "Bloomberg",
-            "topic": "11",
-            "url": "https://www.bloomberg.com/industries"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "12",
-            "url": "https://www.bloomberg.com/industries"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Bloomberg",
             "topic": "13",
-            "url": "https://www.bloomberg.com/industries"
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
+        },
+        {
+            "type": "Bloomberg",
+            "topic": "14",
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
+        },
+        {
+            "type": "Bloomberg",
+            "topic": "15",
+            "url": "https://feeds.megaphone.fm/BLM8578726790"
         },
         {
             "type": "Nature",
@@ -340,7 +320,256 @@
             "type": "Nature",
             "topic": "10",
             "url": "https://www.nature.com/news"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/leaders/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/leaders/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/leaders/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/leaders/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/leaders/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/briefing/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/briefing/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/briefing/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/briefing/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/briefing/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/special-report/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/special-report/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/special-report/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/special-report/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/special-report/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/europe/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/europe/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/europe/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/europe/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/europe/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/business/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/business/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/business/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/business/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/business/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "1",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "2",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "3",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "4",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml"
+        },
+        {
+            "type": "TheEconomist",
+            "topic": "5",
+            "url": "https://www.economist.com/finance-and-economics/rss.xml"
+        },
+        {
+            "type": "Reuters",
+            "topic": "1",
+            "url": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "2",
+            "url": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "3",
+            "url": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "4",
+            "url": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "5",
+            "url": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "1",
+            "url": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "2",
+            "url": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "3",
+            "url": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "4",
+            "url": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "5",
+            "url": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "1",
+            "url": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "2",
+            "url": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "3",
+            "url": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "4",
+            "url": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "5",
+            "url": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "1",
+            "url": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "2",
+            "url": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "3",
+            "url": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "4",
+            "url": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best"
+        },
+        {
+            "type": "Reuters",
+            "topic": "5",
+            "url": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best"
         }
-
     ]
 }

@@ -14,23 +14,27 @@ class ZEITOnlineWebScraper(object):
         input: Zeit Online URL
         output: Headline of Article, Publish Time
         """
-        content = self.getPage(url)
 
-        posTitleOffset = 0
-        while headlineNumber > 0:
-            posTitle = content.find('<span class="visually-hidden">: </span><span class="zon-teaser__title zon-teaser__title--small">', posTitleOffset)
-            posEndTitle = content.find('<', posTitle+96)
-            posTitleOffset = posEndTitle
-            headlineNumber -= 1
+        try:
+            content = self.getPage(url)
 
-        posTimeClass = content.find('<time datetime="')
-        posTime = content.find('">', posTimeClass+16)
-        posEndTime = content.find("<", posTime+2)
+            posTitleOffset = 0
+            while headlineNumber > 0:
+                posTitle = content.find('<span class="visually-hidden">: </span><span class="zon-teaser__title zon-teaser__title--small">', posTitleOffset)
+                posEndTitle = content.find('<', posTitle+96)
+                posTitleOffset = posEndTitle
+                headlineNumber -= 1
 
-        headline = content[posTitle+96:posEndTitle]
-        timePostet = content[posTime+2:posEndTime]
+            posTimeClass = content.find('<time datetime="')
+            posTime = content.find('">', posTimeClass+16)
+            posEndTime = content.find("<", posTime+2)
 
-        return headline, timePostet
+            headline = content[posTitle+96:posEndTitle]
+            timePostet = content[posTime+2:posEndTime]
+
+            return headline, timePostet
+        except:
+            return "ERROR", "ERROR"
 
 
     def getPage(self, url):

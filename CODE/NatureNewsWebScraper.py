@@ -14,25 +14,29 @@ class NatureNewsWebScraper(object):
         input: Nature News Url
         output: Headline of Article, Publish Time
         """
-        content = self.getPage(url)
 
-        posTitleOffset = 0
-        while headlineNumber > 0:
-            posTitle = content.find('<h3 class="c-card__title u-serif u-text17 u-font-weight--regular">', posTitleOffset)
-            posEndTitle = content.find('<', posTitle+66)
-            posTitleOffset = posEndTitle
-            headlineNumber -= 1
+        try:
+            content = self.getPage(url)
 
-        posTimeClass = content.find('<span class="c-card__date u-sans-serif u-text13 u-upper">')
-        posTime = content.find('">', posTimeClass+16)
-        posEndTime = content.find("<", posTime+2)
+            posTitleOffset = 0
+            while headlineNumber > 0:
+                posTitle = content.find('<h3 class="c-card__title u-serif u-text17 u-font-weight--regular">', posTitleOffset)
+                posEndTitle = content.find('<', posTitle+66)
+                posTitleOffset = posEndTitle
+                headlineNumber -= 1
 
-        headline = content[posTitle+66:posEndTitle]
-        timePostet = content[posTime+2:posEndTime]
+            posTimeClass = content.find('<span class="c-card__date u-sans-serif u-text13 u-upper">')
+            posTime = content.find('">', posTimeClass+16)
+            posEndTime = content.find("<", posTime+2)
 
-        timePostet = timePostet.split(" 20")[0]
+            headline = content[posTitle+66:posEndTitle]
+            timePostet = content[posTime+2:posEndTime]
 
-        return headline, timePostet
+            timePostet = timePostet.split(" 20")[0]
+
+            return headline, timePostet
+        except:
+            return "ERROR", "ERROR"
 
 
     def getPage(self, url):
@@ -54,4 +58,4 @@ class NatureNewsWebScraper(object):
 
 if __name__ == '__main__':
     natureScraper = NatureNewsWebScraper(True)
-    print(natureScraper.getHeadline("https://www.nature.com/news", 1))
+    print(natureScraper.getHeadline("https://www.nature.com/news", 2))

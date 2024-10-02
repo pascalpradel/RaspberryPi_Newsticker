@@ -2,6 +2,8 @@ from GoogleFinanceWebScraper import GoogleFinanceWebScraper
 from ZEITOnlineWebScraper import ZEITOnlineWebScraper
 from BloombergWebScraper import BloombergWebScraper
 from NatureNewsWebScraper import NatureNewsWebScraper
+from ReutersWebScraper import ReutersWebScraper
+from TheEconomistWebScraper import TheEconomistWebScraper
 from datetime import datetime, timedelta
 from LEDMatrix import LEDMatrix
 import threading
@@ -39,6 +41,8 @@ class RaspiPiNewsticker(object):
         self.bloombergScraper = BloombergWebScraper()
         self.zeitScraper = ZEITOnlineWebScraper()
         self.natureScraper = NatureNewsWebScraper()
+        self.reutersScraper = ReutersWebScraper()
+        self.economistScraper = TheEconomistWebScraper()
         self.ledMatrix = LEDMatrix(rows=ROWS, cols=COLS, brightness=BRIGHTNESS, font=FONT, textColor=TEXTCOLOR)
 
         self.iterator = 0
@@ -170,27 +174,42 @@ class RaspiPiNewsticker(object):
         """
         if record[0] == "stock":
             exchange, currency, lastPrice, changeValue = self.financeScraper.getCurrentStockData(record[2], record[1])
-            return str(record[1]) + " [" + str(exchange) + "] " + str(lastPrice) + " " + str(currency) + " ( " + str(changeValue) + ")"
+            if exchange != "ERROR":
+                return str(record[1]) + " [" + str(exchange) + "] " + str(lastPrice) + " " + str(currency) + " ( " + str(changeValue) + ")"
 
         elif record[0] == "index":
             exchange, lastPoints, changeValue = self.financeScraper.getCurrentIndexData(record[2], record[1])
-            return str(record[1]) + " [" + str(exchange) + "] " + str(lastPoints) + " (" + str(changeValue) + ")"
+            if exchange != "ERROR":
+                return str(record[1]) + " [" + str(exchange) + "] " + str(lastPoints) + " (" + str(changeValue) + ")"
             
         elif record[0] == "Bloomberg":
-            headline = self.bloombergScraper.getCurrentHeadline(record[2], int(record[1]))
-            return str(headline)
-
-        elif record[0] == "weather":
-            temp, humid = self.getWeather(record[2])
-            return str(record[1]) + ": " + str(temp) + "°C, " + str(humid) + "%" + " rH"
+            headline, timePostet = self.bloombergScraper.getCurrentHeadline(record[2], int(record[1]))
+            if headline != "ERROR":
+                return " " + headline + " [" + timePostet + "]"
+        
+        elif record[0] == "Reuters":
+            headline, timePostet = self.reutersScraper.getCurrentHeadline(record[2], int(record[1]))
+            if headline != "ERROR":
+                return " " + headline + " [" + timePostet + "]"
         
         elif record[0] == "ZeitOnline":
             headline, timePostet = self.zeitScraper.getHeadline(record[2], int(record[1]))
-            return " " + headline + " [" + timePostet + "]"
+            if headline != "ERROR":
+                return " " + headline + " [" + timePostet + "]"
         
         elif record[0] == "Nature":
             headline, timePostet = self.natureScraper.getHeadline(record[2], int(record[1]))
-            return " " + headline + " [" + timePostet + "]"
+            if headline != "ERROR":
+                return " " + headline + " [" + timePostet + "]"
+        
+        elif record[0] == "TheEconomist":
+            headline, timePostet = self.economistScraperScraper.getCurrentHeadline(record[2], int(record[1]))
+            if headline != "ERROR":
+                return " " + headline + " [" + timePostet + "]"
+            
+        elif record[0] == "weather":
+            temp, humid = self.getWeather(record[2])
+            return str(record[1]) + ": " + str(temp) + "°C, " + str(humid) + "%" + " rH"
 
 
     def getWeather(self, city):
@@ -273,10 +292,10 @@ class RaspiPiNewsticker(object):
 
     def isNightTime(self):
         """
-        Checks if current time is bewteen 22 Uhr (10 PM) and 6 Uhr (6 AM)
+        Checks if current time is bewteen 23 Uhr (11 PM) and 6 Uhr (6 AM)
         """
         currentHour = datetime.now().hour
-        return currentHour >= 22 or currentHour <= 6
+        return currentHour >= 23 or currentHour <= 6
 
 
 
